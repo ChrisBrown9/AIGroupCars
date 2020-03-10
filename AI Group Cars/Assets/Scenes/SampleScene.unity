@@ -9882,7 +9882,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 6.09e-42, y: 1.04e-43, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: -0.05859375, y: -0.8, z: 8, w: 12.000001}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -15271,7 +15271,7 @@ GameObject:
   - component: {fileID: 1247789731}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

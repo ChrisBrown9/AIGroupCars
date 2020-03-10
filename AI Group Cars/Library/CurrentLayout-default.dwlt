@@ -392,9 +392,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 16360000
-      m_LastClickedID: 13846
-      m_ExpandedIDs: 72fbffff
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 72fbffff5e330000ca330000b6340000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -454,9 +454,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -68.98096, y: -84.17151, z: -85.90402}
+    m_Target: {x: -59.34015, y: -84.66437, z: -96.55945}
     speed: 2
-    m_Value: {x: -68.98096, y: -84.17151, z: -85.90402}
+    m_Value: {x: -59.34015, y: -84.66437, z: -96.55945}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -502,13 +502,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.13865566, y: -0.8563188, z: 0.29792225, w: 0.398551}
+    m_Target: {x: 0.13596879, y: -0.859871, z: 0.29915804, w: 0.39082807}
     speed: 2
-    m_Value: {x: 0.13909489, y: -0.85567385, z: 0.2976979, w: 0.39981347}
+    m_Value: {x: 0.13596146, y: -0.85982466, z: 0.2991419, w: 0.390807}
   m_Size:
-    m_Target: 200.95683
+    m_Target: 207.63115
     speed: 2
-    m_Value: 192.30319
+    m_Value: 207.63115
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -608,7 +608,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 568
-    width: 1006
+    width: 1014
     height: 255
   m_ViewDataDictionary: {fileID: 0}
   m_SearchFilter:
@@ -636,8 +636,8 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ba530000
-    m_LastClickedID: 21434
+    m_SelectedIDs: 4c390000
+    m_LastClickedID: 14668
     m_ExpandedIDs: 000000001c39000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -691,8 +691,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: fa2b0000
+    m_LastClickedInstanceID: 11258
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:

@@ -16,7 +16,7 @@ public class AIDrivingActions : MonoBehaviour
 
     public void TurnLeft()
     {
-        if (grounded)
+        if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
             transform.Rotate(new Vector3(0, -2, 0));
         }
@@ -24,7 +24,7 @@ public class AIDrivingActions : MonoBehaviour
 
     public void TurnRight()
     {
-        if (grounded)
+        if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
             transform.Rotate(new Vector3(0, 2, 0));
         }
@@ -32,7 +32,7 @@ public class AIDrivingActions : MonoBehaviour
 
     public void Accelerate()
     {
-        if (grounded)
+        if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
             GetComponent<Rigidbody>().AddForce(transform.forward * 1f, ForceMode.Impulse);
         }
@@ -40,7 +40,7 @@ public class AIDrivingActions : MonoBehaviour
 
     public void Decelerate()
     {
-        if (grounded)
+        if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
             GetComponent<Rigidbody>().AddForce(-transform.forward * 1f, ForceMode.Impulse);
         }
@@ -48,7 +48,7 @@ public class AIDrivingActions : MonoBehaviour
 
     public void Jump()
     {
-        if (grounded)
+        if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
             GetComponent<Rigidbody>().AddForce(new Vector3(0, 1, 0), ForceMode.Impulse);
         }

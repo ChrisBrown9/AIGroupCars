@@ -18,15 +18,16 @@ public class AICarSensors : MonoBehaviour
     int bestCheckpoint = -1;
     float distanceToNextCheckpoint;
 
+    public bool wallCollision = false;
+
     // Makes all the lines that come out from the car, in order to let the car see where its going
     void Update()
     {
         distanceToNextCheckpoint = (transform.position - checkpoints[bestCheckpoint + 1].position).magnitude;
-        
-        if (bestCheckpoint == 0)
+
+        if (wallCollision)
         {
-            //print(checkpoints[bestCheckpoint + 1].position);
-            //print("Distance to next checkpoint: " + distanceToNextCheckpoint);
+            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         }
 
         Physics.Raycast(transform.position + transform.forward * 1.3f, transform.forward, out Forward, 50);
@@ -116,10 +117,19 @@ public class AICarSensors : MonoBehaviour
     public void resetBestCheckpoint()
     {
         bestCheckpoint = -1;
+        wallCollision = false;
     }
 
     public float getDistanceToNextCheckpoint()
     {
         return distanceToNextCheckpoint;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Wall")
+        {
+            wallCollision = true;
+        }
     }
 }

@@ -231,6 +231,37 @@ public class ValuesStorage : MonoBehaviour
             ///perform the action that the neural net tells the car to perform
             AIDrivingActions controls = GetComponent<AIDrivingActions>();
 
+            float bestvalue = triggerValues[0];
+            int bestvaluenum = 0;
+
+            for (int i = 1; i < 5; i++)
+            {
+                if (triggerValues[i] > bestvalue)
+                {
+                    bestvalue = triggerValues[i];
+                    bestvaluenum = i;
+                }
+            }
+
+            switch (bestvaluenum)
+            {
+                case 0:
+                    controls.TurnLeft();
+                        break;
+                case 1:
+                    controls.TurnRight();
+                    break;
+                case 2:
+                    controls.Accelerate();
+                    break;
+                case 3:
+                    controls.Decelerate();
+                    break;
+                case 4:
+                    controls.Jump();
+                    break;
+            }
+            /*
             if (triggerValues[0] > triggerThreshholds[0])
             {
                 controls.TurnLeft();
@@ -254,7 +285,7 @@ public class ValuesStorage : MonoBehaviour
             if (triggerValues[4] > triggerThreshholds[4])
             {
                 controls.Jump();
-            }
+            }*/
             ///End of the AI performing its Job
         }
     }
