@@ -34,7 +34,7 @@ public class AIDrivingActions : MonoBehaviour
     {
         if (grounded)
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward * 0.5f, ForceMode.Impulse);
+            GetComponent<Rigidbody>().AddForce(transform.forward * 1f, ForceMode.Impulse);
         }
     }
 
@@ -42,7 +42,7 @@ public class AIDrivingActions : MonoBehaviour
     {
         if (grounded)
         {
-            GetComponent<Rigidbody>().AddForce(-transform.forward * 0.5f, ForceMode.Impulse);
+            GetComponent<Rigidbody>().AddForce(-transform.forward * 1f, ForceMode.Impulse);
         }
     }
 
@@ -54,7 +54,7 @@ public class AIDrivingActions : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Track")
         {

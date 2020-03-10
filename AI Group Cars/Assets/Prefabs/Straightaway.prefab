@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5831091082600885323}
   - component: {fileID: 5111519742520779907}
   - component: {fileID: 186397058190671566}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Straightaway
   m_TagString: Track
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 3656148079434568753}
   - component: {fileID: 8128196380974006790}
   - component: {fileID: 8903139368664240201}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 4808119338195865058}
   - component: {fileID: 5415238754898523962}
   - component: {fileID: 6587274775160476627}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

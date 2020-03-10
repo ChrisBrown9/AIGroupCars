@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 2163712943668527261}
   - component: {fileID: 1805475590075990881}
   - component: {fileID: 8320259571297015867}
+  - component: {fileID: 8983991491595828552}
+  - component: {fileID: 6577393166807701869}
   m_Layer: 8
   m_Name: Car
   m_TagString: Untagged
@@ -125,6 +127,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6603e9088870c0947b47a99aaf9d179e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &8320259571297015867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +191,501 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0aeaec5c9916b4dacafdbb0f906079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8983991491595828552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286423888063902364}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52ad648358c4dcf4a8e39e3b0e07950f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layer1Threshholds:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node1lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node2lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node3lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node4lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node5lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node6lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node7lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node8lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2NodeValues:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Threshholds:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node1lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node2lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node3lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node4lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node5lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node6lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node7lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node8lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3NodeValues:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Threshholds:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node1lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node2lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node3lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node4lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node5lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node6lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node7lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node8lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  triggerValues:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  triggerThreshholds:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+--- !u!114 &6577393166807701869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286423888063902364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab70e10a9fa9d4044a2f76bd635ce776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layer1Node1lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node2lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node3lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node4lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node5lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node6lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node7lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer1Node8lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2NodeValues:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node1lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node2lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node3lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node4lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node5lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node6lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node7lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer2Node8lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3NodeValues:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node1lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node2lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node3lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node4lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node5lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node6lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node7lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  layer3Node8lines:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  triggerValues:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  triggerThreshholds:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!1001 &3037153585479164687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -218,6 +767,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AICarFixed
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: fb3baef6afefc9e44b5d71dbb34dbe6e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb3baef6afefc9e44b5d71dbb34dbe6e, type: 3}

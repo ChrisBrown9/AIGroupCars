@@ -13,10 +13,22 @@ public class AICarSensors : MonoBehaviour
     RaycastHit BackLeft;
     RaycastHit BackRight;
 
+    [SerializeField] Transform[] checkpoints = new Transform[51];
+
+    int bestCheckpoint = -1;
+    float distanceToNextCheckpoint;
+
     // Makes all the lines that come out from the car, in order to let the car see where its going
     void Update()
     {
+        distanceToNextCheckpoint = (transform.position - checkpoints[bestCheckpoint + 1].position).magnitude;
         
+        if (bestCheckpoint == 0)
+        {
+            //print(checkpoints[bestCheckpoint + 1].position);
+            //print("Distance to next checkpoint: " + distanceToNextCheckpoint);
+        }
+
         Physics.Raycast(transform.position + transform.forward * 1.3f, transform.forward, out Forward, 50);
         //Debug.DrawLine(transform.position + transform.forward * 1.3f, Forward.point);
 
@@ -29,6 +41,12 @@ public class AICarSensors : MonoBehaviour
         Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 - transform.up).normalized, out FrontDown, 50);
         //Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontDown.point);
 
+        Physics.Raycast(transform.position - transform.right * 0.5f, -transform.right, out Left, 50);
+        //Debug.DrawLine(transform.position - transform.right * 0.5f, Left.point);
+
+        Physics.Raycast(transform.position + transform.right * 0.5f, transform.right, out Right, 50);
+        //Debug.DrawLine(transform.position + transform.right * 0.5f, Right.point);
+
         Physics.Raycast(transform.position - transform.forward * 1.3f, (-transform.forward * 2 - transform.right).normalized, out BackLeft, 50);
         //Debug.DrawLine(transform.position - transform.forward * 1.3f, BackLeft.point);
 
@@ -39,32 +57,69 @@ public class AICarSensors : MonoBehaviour
 
     public float ForwardDist()
     {
-        return Forward.distance;
+        return Forward.distance / 50f;
     }
 
     public float FrontLeftDist()
     {
-        return FrontLeft.distance;
+        return FrontLeft.distance / 50f;
     }
 
     public float FrontRightDist()
     {
-        return FrontRight.distance;
+        return FrontRight.distance / 50f;
     }
 
     public float FrontDownDist()
     {
-        return FrontDown.distance;
+        return FrontDown.distance / 50f;
+    }
+
+    public float LeftDist()
+    {
+        return Left.distance / 50f;
+    }
+
+    public float RightDist()
+    {
+        return Right.distance / 50f;
     }
 
     public float BackLeftDist()
     {
-        return BackLeft.distance;
+        return BackLeft.distance / 50f;
     }
 
     public float BackRightDist()
     {
-        return BackRight.distance;
+        return BackRight.distance / 50f;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<Checkpoint>() != null)
+        {
+            int i = other.GetComponent<Checkpoint>().getCheckPointNum();
+
+            if (i > bestCheckpoint)
+            {
+                bestCheckpoint = i;
+            }
+        }
+    }
+
+    public int getBestCheckpoint()
+    {
+        return bestCheckpoint;
+    }
+
+    public void resetBestCheckpoint()
+    {
+        bestCheckpoint = -1;
+    }
+
+    public float getDistanceToNextCheckpoint()
+    {
+        return distanceToNextCheckpoint;
+    }
 }
