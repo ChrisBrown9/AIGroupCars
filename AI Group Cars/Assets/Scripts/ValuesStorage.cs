@@ -35,6 +35,7 @@ public class ValuesStorage : MonoBehaviour
 
     public void FreshStartValues()
     {
+        /*
         for (int i = 0; i < 4; i++)
         {
             hiddenLayerWeights1[i] = 0.5f;
@@ -54,6 +55,68 @@ public class ValuesStorage : MonoBehaviour
             outputLayerWeights3[i] = 0.5f;
             outputLayerWeights4[i] = 0.5f;
         }
+        */
+
+        hiddenLayerWeights1[0] = 0.0f;
+        hiddenLayerWeights2[0] = 0.5f;
+        hiddenLayerWeights3[0] = 0.0f;
+        hiddenLayerWeights4[0] = 0.0f;
+        hiddenLayerWeights5[0] = 0.5f;
+        hiddenLayerWeights6[0] = 0.0f;
+        hiddenLayerWeights7[0] = 0.3f;
+        hiddenLayerWeights8[0] = 0.0f;
+
+        hiddenLayerWeights1[1] = 0.0f;
+        hiddenLayerWeights2[1] = 0.0f;
+        hiddenLayerWeights3[1] = 0.5f;
+        hiddenLayerWeights4[1] = 0.0f;
+        hiddenLayerWeights5[1] = 0.0f;
+        hiddenLayerWeights6[1] = 0.5f;
+        hiddenLayerWeights7[1] = 0.0f;
+        hiddenLayerWeights8[1] = 0.3f;
+
+        hiddenLayerWeights1[2] = 0.0f;
+        hiddenLayerWeights2[2] = 0.0f;
+        hiddenLayerWeights3[2] = 0.0f;
+        hiddenLayerWeights4[2] = 0.5f;
+        hiddenLayerWeights5[2] = 0.0f;
+        hiddenLayerWeights6[2] = 0.0f;
+        hiddenLayerWeights7[2] = 0.0f;
+        hiddenLayerWeights8[2] = 0.0f;
+
+        hiddenLayerWeights1[3] = 0.7f;
+        hiddenLayerWeights2[3] = 0.7f;
+        hiddenLayerWeights3[3] = 0.7f;
+        hiddenLayerWeights4[3] = 0.0f;
+        hiddenLayerWeights5[3] = 0.0f;
+        hiddenLayerWeights6[3] = 0.0f;
+        hiddenLayerWeights7[3] = 0.0f;
+        hiddenLayerWeights8[3] = 0.0f;
+
+        outputLayerWeights1[0] = 0.3f;
+        outputLayerWeights2[0] = 0.5f;
+        outputLayerWeights3[0] = 0.0f;
+        outputLayerWeights4[0] = 0.5f;
+
+        outputLayerWeights1[1] = 0.5f;
+        outputLayerWeights2[1] = 0.3f;
+        outputLayerWeights3[1] = 0.0f;
+        outputLayerWeights4[1] = 0.5f;
+
+        outputLayerWeights1[2] = 0.5f;
+        outputLayerWeights2[2] = 0.5f;
+        outputLayerWeights3[2] = 0.0f;
+        outputLayerWeights4[2] = 0.5f;
+
+        outputLayerWeights1[3] = 0.0f;
+        outputLayerWeights2[3] = 0.0f;
+        outputLayerWeights3[3] = 0.0f;
+        outputLayerWeights4[3] = 0.0f;
+
+        outputLayerWeights1[4] = 0.0f;
+        outputLayerWeights2[4] = 0.0f;
+        outputLayerWeights3[4] = 0.5f;
+        outputLayerWeights4[4] = 0.0f;
     }
 
     public void RandomizeValues(ValuesStorage mom, ValuesStorage dad, float value)

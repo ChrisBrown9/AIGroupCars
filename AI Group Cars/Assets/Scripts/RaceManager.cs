@@ -63,7 +63,7 @@ public class RaceManager : MonoBehaviour
             {
                 //randomize the AI for the rest of the cars
                 CarsList[i].GetComponent<ValuesStorage>().replaceValues(mommy);
-                CarsList[i].GetComponent<ValuesStorage>().RandomizeValues(mommy, daddy, randomizationValue);
+                //CarsList[i].GetComponent<ValuesStorage>().RandomizeValues(mommy, daddy, randomizationValue);
             }
 
             //print("Race Number : " + raceNumber);
