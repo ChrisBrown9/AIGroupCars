@@ -12,12 +12,12 @@ public class RaceManager : MonoBehaviour
 
     [SerializeField] ValuesStorage bestAI;
 
-    float gameTimer = 3;
+    public float gameTimer = 3;
     int raceNumber = 0;
 
     int bestCheckpoint = -1;
     float leastDistance = 800;
-    float randomizationValue = 1.1f;
+    float randomizationValue = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +31,7 @@ public class RaceManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         gameTimer -= Time.deltaTime;
         //spawn car if gametimer is less than zero
@@ -57,14 +57,16 @@ public class RaceManager : MonoBehaviour
             for (int i = 1; i < 20; i++)
             {
                 //randomize the AI for the rest of the cars
-                CarsList[i].GetComponent<ValuesStorage>().replaceValues(bestAI);
-                CarsList[i].GetComponent<ValuesStorage>().RandomizeValues(randomizationValue);
+                //CarsList[i].GetComponent<ValuesStorage>().replaceValues(CarsList[0].GetComponent<ValuesStorage>());
+                //CarsList[i].GetComponent<ValuesStorage>().RandomizeValues(randomizationValue);
+
+                CarsList[i].GetComponent<ValuesStorage>().makeBaby(bestAI, randomizationValue);
             }
 
             //print("Race Number : " + raceNumber);
-            if (raceNumber < 100)
+            if (raceNumber < 500)
             {
-                randomizationValue -= 0.01f;
+                //randomizationValue -= 0.001f;
             }
             if (raceNumber < 300)
             {

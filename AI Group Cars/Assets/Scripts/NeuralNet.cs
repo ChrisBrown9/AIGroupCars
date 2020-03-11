@@ -147,7 +147,7 @@ public class NeuralNet : MonoBehaviour
 
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         startdelay -= Time.deltaTime;
         if (startdelay < 0)

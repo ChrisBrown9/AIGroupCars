@@ -21,7 +21,7 @@ public class AICarSensors : MonoBehaviour
     public bool wallCollision = false;
 
     // Makes all the lines that come out from the car, in order to let the car see where its going
-    void Update()
+    void FixedUpdate()
     {
         distanceToNextCheckpoint = (transform.position - checkpoints[bestCheckpoint + 1].position).magnitude;
 
@@ -40,7 +40,7 @@ public class AICarSensors : MonoBehaviour
         //Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontRight.point);
 
         Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 - transform.up).normalized, out FrontDown, 50);
-        //Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontDown.point);
+        Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontDown.point);
 
         Physics.Raycast(transform.position - transform.right * 0.5f, -transform.right, out Left, 50);
         //Debug.DrawLine(transform.position - transform.right * 0.5f, Left.point);
@@ -58,7 +58,8 @@ public class AICarSensors : MonoBehaviour
 
     public float ForwardDist()
     {
-        return Forward.distance / 50f;
+        //return Forward.distance / 50f;
+        return 0;
     }
 
     public float FrontLeftDist()
