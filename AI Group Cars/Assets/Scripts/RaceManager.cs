@@ -13,7 +13,7 @@ public class RaceManager : MonoBehaviour
     [SerializeField] ValuesStorage daddy;
 
     public float gameTimer = 3;
-    int raceNumber = 0;
+    public int raceNumber = 0;
 
     int mommyCheckpoint = -1;
     float mommyLeastDistance = 800;
@@ -21,7 +21,7 @@ public class RaceManager : MonoBehaviour
     int daddyCheckpoint = -1;
     float daddyLeastDistance = 800;
 
-    float randomizationValue = 1.1f;
+    float randomizationValue = 0.5f;
 
     public static int deadCars = 0;
 
@@ -69,7 +69,7 @@ public class RaceManager : MonoBehaviour
             //print("Race Number : " + raceNumber);
             if (raceNumber < 100)
             {
-                randomizationValue -= 0.01f;
+                //randomizationValue -= 0.01f;
             }
             if (raceNumber < 300)
             {

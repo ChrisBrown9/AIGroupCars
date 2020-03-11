@@ -61,9 +61,6 @@ public class ValuesStorage : MonoBehaviour
         int yesMutate;
         int parent;
 
-        print(mom.hiddenLayerValues[0] + ", " + mom.hiddenLayerValues[1] + ", " + mom.hiddenLayerValues[2] + ", " + mom.hiddenLayerValues[3]);
-        print(dad.hiddenLayerValues[0] + ", " + dad.hiddenLayerValues[1] + ", " + dad.hiddenLayerValues[2] + ", " + dad.hiddenLayerValues[3]);
-
         for (int i = 0; i < 4; i++)
         {
             parent = Random.Range(0, 2);
@@ -307,7 +304,8 @@ public class ValuesStorage : MonoBehaviour
             /// Check the first layer for nodes that fired, then perform additions if they did
             for (int i = 0; i < 4; i++)
             {
-                hiddenLayerValues[i] += hiddenLayerWeights1[i] * inputs.ForwardDist();
+                hiddenLayerValues[i] += hiddenLayerWeights1[i] * (1 - inputs.ForwardDist());
+                hiddenLayerValues[i] = hiddenLayerWeights1[i] * 0;
                 hiddenLayerValues[i] += hiddenLayerWeights2[i] * inputs.FrontLeftDist();
                 hiddenLayerValues[i] += hiddenLayerWeights3[i] * inputs.FrontRightDist();
                 hiddenLayerValues[i] += hiddenLayerWeights4[i] * inputs.FrontDownDist();
@@ -343,6 +341,8 @@ public class ValuesStorage : MonoBehaviour
 
             ///perform the action that the neural net tells the car to perform
             AIDrivingActions controls = GetComponent<AIDrivingActions>();
+
+            print(outputLayerValues[0] + ", " + outputLayerValues[1] + ", " + outputLayerValues[2] + ", " + outputLayerValues[3] + ", " + outputLayerValues[4]);
 
             float bestvalue = outputLayerValues[0];
             int bestvaluenum = 0;
