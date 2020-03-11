@@ -17,6 +17,7 @@ public class AICarSensors : MonoBehaviour
 
     int bestCheckpoint = -1;
     float distanceToNextCheckpoint;
+    float deathTimer = 3.0f; 
 
     public bool wallCollision = false;
 
@@ -118,6 +119,7 @@ public class AICarSensors : MonoBehaviour
     {
         bestCheckpoint = -1;
         wallCollision = false;
+        deathTimer = 3.0f;
     }
 
     public float getDistanceToNextCheckpoint()
@@ -125,11 +127,32 @@ public class AICarSensors : MonoBehaviour
         return distanceToNextCheckpoint;
     }
 
+    private void die()
+    {
+        wallCollision = true;
+        RaceManager.deadCars++;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Wall")
         {
-            wallCollision = true;
+            die();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!wallCollision)
+        {
+            if (other.gameObject.tag == "MainCamera")
+            {
+                deathTimer -= Time.deltaTime;
+                if (deathTimer < 0.0f)
+                {
+                    die();
+                }
+            }
         }
     }
 }

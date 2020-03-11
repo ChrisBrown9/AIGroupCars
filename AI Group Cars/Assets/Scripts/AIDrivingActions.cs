@@ -9,16 +9,19 @@ public class AIDrivingActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x * 0.95f, 
-            GetComponent<Rigidbody>().velocity.y, 
-            GetComponent<Rigidbody>().velocity.z *0.95f);
+        if (grounded)
+        {
+            GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x * 0.95f,
+                GetComponent<Rigidbody>().velocity.y,
+                GetComponent<Rigidbody>().velocity.z * 0.95f);
+        }
     }
 
     public void TurnLeft()
     {
         if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
-            transform.Rotate(new Vector3(0, -2, 0));
+            transform.Rotate(new Vector3(0, -120 * Time.deltaTime, 0));
         }
     }
 
@@ -26,7 +29,7 @@ public class AIDrivingActions : MonoBehaviour
     {
         if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
-            transform.Rotate(new Vector3(0, 2, 0));
+            transform.Rotate(new Vector3(0, 120 * Time.deltaTime, 0));
         }
     }
 
@@ -34,7 +37,7 @@ public class AIDrivingActions : MonoBehaviour
     {
         if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward * 1f, ForceMode.Impulse);
+            GetComponent<Rigidbody>().AddForce(transform.forward * 50f, ForceMode.Force);
         }
     }
 
@@ -42,7 +45,7 @@ public class AIDrivingActions : MonoBehaviour
     {
         if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
-            GetComponent<Rigidbody>().AddForce(-transform.forward * 1f, ForceMode.Impulse);
+            GetComponent<Rigidbody>().AddForce(-transform.forward * 50f, ForceMode.Force);
         }
     }
 

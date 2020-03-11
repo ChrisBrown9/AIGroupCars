@@ -7,146 +7,283 @@ using UnityEngine;
 public class ValuesStorage : MonoBehaviour
 {
     //first layer values needed in order to fire
-    //public float[] layer1Threshholds = new float[8];
-
-    //values sent to all the layer 2 nodes when each layer1 node fires
-    public float[] layer1Node1lines = new float[8];
-    public float[] layer1Node2lines = new float[8];
-    public float[] layer1Node3lines = new float[8];
-    public float[] layer1Node4lines = new float[8];
-    public float[] layer1Node5lines = new float[8];
-    public float[] layer1Node6lines = new float[8];
-    public float[] layer1Node7lines = new float[8];
-    public float[] layer1Node8lines = new float[8];
-
-    //layer 2 current values and threshholds
-    public float[] layer2NodeValues = new float[8];
-    //public float[] layer2Threshholds = new float[8];
-
-    //values sent to all layer 3 nodes when the layer 2 values exceed the threshholds
-    public float[] layer2Node1lines = new float[8];
-    public float[] layer2Node2lines = new float[8];
-    public float[] layer2Node3lines = new float[8];
-    public float[] layer2Node4lines = new float[8];
-    public float[] layer2Node5lines = new float[8];
-    public float[] layer2Node6lines = new float[8];
-    public float[] layer2Node7lines = new float[8];
-    public float[] layer2Node8lines = new float[8];
-
-    //layer 3 current values and threshholds
-    public float[] layer3NodeValues = new float[8];
-    //public float[] layer3Threshholds = new float[8];
-
-    //values sent to all trigger nodes when layer 3 nodes fire
-    public float[] layer3Node1lines = new float[5];
-    public float[] layer3Node2lines = new float[5];
-    public float[] layer3Node3lines = new float[5];
-    public float[] layer3Node4lines = new float[5];
-    public float[] layer3Node5lines = new float[5];
-    public float[] layer3Node6lines = new float[5];
-    public float[] layer3Node7lines = new float[5];
-    public float[] layer3Node8lines = new float[5];
-
-    //trigger node values and threshholds, if the value exceeds the threshold the action will occur
-    public float[] triggerValues = new float[5];
-    public float[] triggerThreshholds = new float[5];
-
     float startdelay = 1.5f;
+
+    //not chris
+    public float[] hiddenLayerWeights1 = new float[4];
+    public float[] hiddenLayerWeights2 = new float[4];
+    public float[] hiddenLayerWeights3 = new float[4];
+    public float[] hiddenLayerWeights4 = new float[4];
+    public float[] hiddenLayerWeights5 = new float[4];
+    public float[] hiddenLayerWeights6 = new float[4];
+    public float[] hiddenLayerWeights7 = new float[4];
+    public float[] hiddenLayerWeights8 = new float[4];
+
+    public float[] hiddenLayerValues = new float[4];
+
+    public float[] outputLayerWeights1 = new float[5];
+    public float[] outputLayerWeights2 = new float[5];
+    public float[] outputLayerWeights3 = new float[5];
+    public float[] outputLayerWeights4 = new float[5];
+
+    public float[] outputLayerValues = new float[5];
+
+    private void Awake()
+    {
+        FreshStartValues();
+    }
 
     public void FreshStartValues()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 4; i++)
         {
-            //layer1Threshholds[i] = 10;
-
-            layer1Node1lines[i] = 0.5f;
-            layer1Node2lines[i] = 0.5f;
-            layer1Node3lines[i] = 0.5f;
-            layer1Node4lines[i] = 0.5f;
-            layer1Node5lines[i] = 0.5f;
-            layer1Node6lines[i] = 0.5f;
-            layer1Node7lines[i] = 0.5f;
-            layer1Node8lines[i] = 0.5f;
-
-            layer2NodeValues[i] = 0;
-            //layer2Threshholds[i] = 10;
-
-            layer2Node1lines[i] = 0.5f;
-            layer2Node2lines[i] = 0.5f;
-            layer2Node3lines[i] = 0.5f;
-            layer2Node4lines[i] = 0.5f;
-            layer2Node5lines[i] = 0.5f;
-            layer2Node6lines[i] = 0.5f;
-            layer2Node7lines[i] = 0.5f;
-            layer2Node8lines[i] = 0.5f;
-
-            layer3NodeValues[i] = 0;
-            //layer3Threshholds[i] = 10;
+            hiddenLayerWeights1[i] = 0.5f;
+            hiddenLayerWeights2[i] = 0.5f;
+            hiddenLayerWeights3[i] = 0.5f;
+            hiddenLayerWeights4[i] = 0.5f;
+            hiddenLayerWeights5[i] = 0.5f;
+            hiddenLayerWeights6[i] = 0.5f;
+            hiddenLayerWeights7[i] = 0.5f;
+            hiddenLayerWeights8[i] = 0.5f;
         }
 
         for (int i = 0; i < 5; i++)
         {
-            layer3Node1lines[i] = 0.5f;
-            layer3Node2lines[i] = 0.5f;
-            layer3Node3lines[i] = 0.5f;
-            layer3Node4lines[i] = 0.5f;
-            layer3Node5lines[i] = 0.5f;
-            layer3Node6lines[i] = 0.5f;
-            layer3Node7lines[i] = 0.5f;
-            layer3Node8lines[i] = 0.5f;
-
-            triggerValues[i] = 0;
-            triggerThreshholds[i] = 0.5f;
+            outputLayerWeights1[i] = 0.5f;
+            outputLayerWeights2[i] = 0.5f;
+            outputLayerWeights3[i] = 0.5f;
+            outputLayerWeights4[i] = 0.5f;
         }
     }
 
-    public void RandomizeValues(float value)
+    public void RandomizeValues(ValuesStorage mom, ValuesStorage dad, float value)
     {
-        for (int i = 0; i < 8; i++)
+        int yesMutate;
+        int parent;
+
+        print(mom.hiddenLayerValues[0] + ", " + mom.hiddenLayerValues[1] + ", " + mom.hiddenLayerValues[2] + ", " + mom.hiddenLayerValues[3]);
+        print(dad.hiddenLayerValues[0] + ", " + dad.hiddenLayerValues[1] + ", " + dad.hiddenLayerValues[2] + ", " + dad.hiddenLayerValues[3]);
+
+        for (int i = 0; i < 4; i++)
         {
-            //layer1Threshholds[i] += Random.Range(-value, value);
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
 
-            layer1Node1lines[i] += Random.Range(-value, value);
-            layer1Node2lines[i] += Random.Range(-value, value);
-            layer1Node3lines[i] += Random.Range(-value, value);
-            layer1Node4lines[i] += Random.Range(-value, value);
-            layer1Node5lines[i] += Random.Range(-value, value);
-            layer1Node6lines[i] += Random.Range(-value, value);
-            layer1Node7lines[i] += Random.Range(-value, value);
-            layer1Node8lines[i] += Random.Range(-value, value);
+            if (parent == 0)
+            {
+                hiddenLayerWeights1[i] = mom.hiddenLayerWeights1[i];
+            }
 
-            layer2NodeValues[i] = 0;
-            //layer2Threshholds[i] += Random.Range(-value, value);
+            else
+            {
+                hiddenLayerWeights1[i] = dad.hiddenLayerWeights1[i];
+            }
 
-            layer2Node1lines[i] += Random.Range(-value, value);
-            layer2Node2lines[i] += Random.Range(-value, value);
-            layer2Node3lines[i] += Random.Range(-value, value);
-            layer2Node4lines[i] += Random.Range(-value, value);
-            layer2Node5lines[i] += Random.Range(-value, value);
-            layer2Node6lines[i] += Random.Range(-value, value);
-            layer2Node7lines[i] += Random.Range(-value, value);
-            layer2Node8lines[i] += Random.Range(-value, value);
+            if (yesMutate == 1)
+            {
+                hiddenLayerWeights1[i] += Random.Range(-value, value);
+            }
 
-            layer3NodeValues[i] = 0;
-            //layer3Threshholds[i] += Random.Range(-value, value);
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
+
+            if (parent == 0)
+            {
+                hiddenLayerWeights2[i] = mom.hiddenLayerWeights2[i];
+            }
+
+            else
+            {
+                hiddenLayerWeights2[i] = dad.hiddenLayerWeights2[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                hiddenLayerWeights2[i] += Random.Range(-value, value);
+            }
+
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
+
+            if (parent == 0)
+            {
+                hiddenLayerWeights3[i] = mom.hiddenLayerWeights3[i];
+            }
+
+            else
+            {
+                hiddenLayerWeights3[i] = dad.hiddenLayerWeights3[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                hiddenLayerWeights3[i] += Random.Range(-value, value);
+            }
+
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
+
+            if (parent == 0)
+            {
+                hiddenLayerWeights4[i] = mom.hiddenLayerWeights4[i];
+            }
+
+            else
+            {
+                hiddenLayerWeights4[i] = dad.hiddenLayerWeights4[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                hiddenLayerWeights4[i] += Random.Range(-value, value);
+            }
+
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
+
+            if (parent == 0)
+            {
+                hiddenLayerWeights5[i] = mom.hiddenLayerWeights5[i];
+            }
+
+            else
+            {
+                hiddenLayerWeights5[i] = dad.hiddenLayerWeights5[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                hiddenLayerWeights5[i] += Random.Range(-value, value);
+            }
+
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
+
+            if (parent == 0)
+            {
+                hiddenLayerWeights6[i] = mom.hiddenLayerWeights6[i];
+            }
+
+            else
+            {
+                hiddenLayerWeights6[i] = dad.hiddenLayerWeights6[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                hiddenLayerWeights6[i] += Random.Range(-value, value);
+            }
+
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
+
+            if (parent == 0)
+            {
+                hiddenLayerWeights7[i] = mom.hiddenLayerWeights7[i];
+            }
+
+            else
+            {
+                hiddenLayerWeights7[i] = dad.hiddenLayerWeights7[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                hiddenLayerWeights7[i] += Random.Range(-value, value);
+            }
+
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
+
+            if (parent == 0)
+            {
+                hiddenLayerWeights8[i] = mom.hiddenLayerWeights8[i];
+            }
+
+            else
+            {
+                hiddenLayerWeights8[i] = dad.hiddenLayerWeights8[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                hiddenLayerWeights8[i] += Random.Range(-value, value);
+            }
         }
 
         for (int i = 0; i < 5; i++)
         {
-            layer3Node1lines[i] += Random.Range(-value, value);
-            layer3Node2lines[i] += Random.Range(-value, value);
-            layer3Node3lines[i] += Random.Range(-value, value);
-            layer3Node4lines[i] += Random.Range(-value, value);
-            layer3Node5lines[i] += Random.Range(-value, value);
-            layer3Node6lines[i] += Random.Range(-value, value);
-            layer3Node7lines[i] += Random.Range(-value, value);
-            layer3Node8lines[i] += Random.Range(-value, value);
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
 
-            triggerValues[i] = 0;
-            triggerThreshholds[i] += Random.Range(-value, value);
+            if (parent == 0)
+            {
+                outputLayerWeights1[i] = mom.outputLayerWeights1[i];
+            }
 
-            //make the trigger threshholds between 0 and 1
-            triggerThreshholds[i] = sigmoid(triggerThreshholds[i]);
+            else
+            {
+                outputLayerWeights1[i] = dad.outputLayerWeights1[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                outputLayerWeights1[i] += Random.Range(-value, value);
+            }
+
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
+
+            if (parent == 0)
+            {
+                outputLayerWeights2[i] = mom.outputLayerWeights2[i];
+            }
+
+            else
+            {
+                outputLayerWeights2[i] = dad.outputLayerWeights2[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                outputLayerWeights2[i] += Random.Range(-value, value);
+            }
+
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
+
+            if (parent == 0)
+            {
+                outputLayerWeights3[i] = mom.outputLayerWeights3[i];
+            }
+
+            else
+            {
+                outputLayerWeights3[i] = dad.outputLayerWeights3[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                outputLayerWeights3[i] += Random.Range(-value, value);
+            }
+
+            parent = Random.Range(0, 2);
+            yesMutate = Random.Range(0, 4);
+
+            if (parent == 0)
+            {
+                outputLayerWeights4[i] = mom.outputLayerWeights4[i];
+            }
+
+            else
+            {
+                outputLayerWeights4[i] = dad.outputLayerWeights4[i];
+            }
+
+            if (yesMutate == 1)
+            {
+                outputLayerWeights4[i] += Random.Range(-value, value);
+            }
         }
     }
 
@@ -156,89 +293,65 @@ public class ValuesStorage : MonoBehaviour
         if (startdelay < 0)
         {
             //reset the values in the nodes to 0 every frame
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 5; i++)
             {
-                layer2NodeValues[i] = 0;
-                layer3NodeValues[i] = 0;
-                if (i < 5)
+                outputLayerValues[i] = 0;
+
+                if (i < 4)
                 {
-                    triggerValues[i] = 0;
+                    hiddenLayerValues[i] = 0;
                 }
             }
             AICarSensors inputs = gameObject.GetComponent<AICarSensors>();
 
             /// Check the first layer for nodes that fired, then perform additions if they did
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 4; i++)
             {
-                layer2NodeValues[i] += layer1Node1lines[i] * inputs.ForwardDist();
-                layer2NodeValues[i] += layer1Node2lines[i] * inputs.FrontLeftDist();
-                layer2NodeValues[i] += layer1Node3lines[i] * inputs.FrontRightDist();
-                layer2NodeValues[i] += layer1Node4lines[i] * inputs.FrontDownDist();
-                layer2NodeValues[i] += layer1Node5lines[i] * inputs.LeftDist();
-                layer2NodeValues[i] += layer1Node6lines[i] * inputs.RightDist();
-                layer2NodeValues[i] += layer1Node7lines[i] * inputs.BackLeftDist();
-                layer2NodeValues[i] += layer1Node8lines[i] * inputs.BackRightDist();
+                hiddenLayerValues[i] += hiddenLayerWeights1[i] * inputs.ForwardDist();
+                hiddenLayerValues[i] += hiddenLayerWeights2[i] * inputs.FrontLeftDist();
+                hiddenLayerValues[i] += hiddenLayerWeights3[i] * inputs.FrontRightDist();
+                hiddenLayerValues[i] += hiddenLayerWeights4[i] * inputs.FrontDownDist();
+                hiddenLayerValues[i] += hiddenLayerWeights5[i] * inputs.LeftDist();
+                hiddenLayerValues[i] += hiddenLayerWeights6[i] * inputs.RightDist();
+                hiddenLayerValues[i] += hiddenLayerWeights7[i] * inputs.BackLeftDist();
+                hiddenLayerValues[i] += hiddenLayerWeights8[i] * inputs.BackRightDist();
             }
 
             //apply a sigmoid function to the node values in order to lock them between 0 and 1
-            for (int i = 0; i < 8; i++)
-            {
-                layer2NodeValues[i] = sigmoid(layer2NodeValues[i]);
-            }
+            //for (int i = 0; i < 8; i++)
+            //{
+            //    hiddenLayerValues[i] = sigmoid(hiddenLayerValues[i]);
+            //}
 
             ///End of the first layer firing its nodes
 
             ///Start second layer firing its nodes if they surpass the threshholds
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 5; i++)
             {
-                layer3NodeValues[i] += layer2Node1lines[i] * layer2NodeValues[0];
-                layer3NodeValues[i] += layer2Node2lines[i] * layer2NodeValues[1];
-                layer3NodeValues[i] += layer2Node3lines[i] * layer2NodeValues[2];
-                layer3NodeValues[i] += layer2Node4lines[i] * layer2NodeValues[3];
-                layer3NodeValues[i] += layer2Node5lines[i] * layer2NodeValues[4];
-                layer3NodeValues[i] += layer2Node6lines[i] * layer2NodeValues[5];
-                layer3NodeValues[i] += layer2Node7lines[i] * layer2NodeValues[6];
-                layer3NodeValues[i] += layer2Node8lines[i] * layer2NodeValues[7];
+                outputLayerValues[i] += outputLayerWeights1[i] * hiddenLayerValues[0];
+                outputLayerValues[i] += outputLayerWeights2[i] * hiddenLayerValues[1];
+                outputLayerValues[i] += outputLayerWeights3[i] * hiddenLayerValues[2];
+                outputLayerValues[i] += outputLayerWeights4[i] * hiddenLayerValues[3];
             }
             //apply a sigmoid function to the node values in order to lock them between 0 and 1
-            for (int i = 0; i < 8; i++)
-            {
-                layer3NodeValues[i] = sigmoid(layer3NodeValues[i]);
-            }
+            //for (int i = 0; i < 8; i++)
+            //{
+            //    outputLayerValues[i] = sigmoid(outputLayerValues[i]);
+            //}
             ///End layer 2 nodes firing
-
-            ///Begin layer 3 nodes firing if they surpass threshholds
-            for (int i = 0; i < 5; i++)
-            {
-                triggerValues[i] += layer3Node1lines[i] * layer3NodeValues[0];
-                triggerValues[i] += layer3Node2lines[i] * layer3NodeValues[1];
-                triggerValues[i] += layer3Node3lines[i] * layer3NodeValues[2];
-                triggerValues[i] += layer3Node4lines[i] * layer3NodeValues[3];
-                triggerValues[i] += layer3Node5lines[i] * layer3NodeValues[4];
-                triggerValues[i] += layer3Node6lines[i] * layer3NodeValues[5];
-                triggerValues[i] += layer3Node7lines[i] * layer3NodeValues[6];
-                triggerValues[i] += layer3Node8lines[i] * layer3NodeValues[7];
-            }
-            //apply a sigmoid function to the node values in order to lock them between 0 and 1
-            for (int i = 0; i < 5; i++)
-            {
-                triggerValues[i] = sigmoid(triggerValues[i]);
-            }
-
-            ///End layer 3 nodes firing
 
             ///perform the action that the neural net tells the car to perform
             AIDrivingActions controls = GetComponent<AIDrivingActions>();
 
-            float bestvalue = triggerValues[0];
+            float bestvalue = outputLayerValues[0];
             int bestvaluenum = 0;
 
             for (int i = 1; i < 5; i++)
             {
-                if (triggerValues[i] > bestvalue)
+                if (outputLayerValues[i] > bestvalue)
                 {
-                    bestvalue = triggerValues[i];
+                    bestvalue = outputLayerValues[i];
                     bestvaluenum = i;
                 }
             }
@@ -247,7 +360,7 @@ public class ValuesStorage : MonoBehaviour
             {
                 case 0:
                     controls.TurnLeft();
-                        break;
+                    break;
                 case 1:
                     controls.TurnRight();
                     break;
@@ -261,31 +374,6 @@ public class ValuesStorage : MonoBehaviour
                     controls.Jump();
                     break;
             }
-            /*
-            if (triggerValues[0] > triggerThreshholds[0])
-            {
-                controls.TurnLeft();
-            }
-
-            if (triggerValues[1] > triggerThreshholds[1])
-            {
-                controls.TurnRight();
-            }
-
-            if (triggerValues[2] > triggerThreshholds[2])
-            {
-                controls.Accelerate();
-            }
-
-            if (triggerValues[3] > triggerThreshholds[3])
-            {
-                controls.Decelerate();
-            }
-
-            if (triggerValues[4] > triggerThreshholds[4])
-            {
-                controls.Jump();
-            }*/
             ///End of the AI performing its Job
         }
     }
@@ -296,57 +384,35 @@ public class ValuesStorage : MonoBehaviour
     {
         //newValues.layer1Threshholds.CopyTo(layer1Threshholds, 0);
 
-        newValues.layer1Node1lines.CopyTo(layer1Node1lines, 0);
-        newValues.layer1Node2lines.CopyTo(layer1Node2lines, 0);
-        newValues.layer1Node3lines.CopyTo(layer1Node3lines, 0);
-        newValues.layer1Node4lines.CopyTo(layer1Node4lines, 0);
-        newValues.layer1Node5lines.CopyTo(layer1Node5lines, 0);
-        newValues.layer1Node6lines.CopyTo(layer1Node6lines, 0);
-        newValues.layer1Node7lines.CopyTo(layer1Node7lines, 0);
-        newValues.layer1Node8lines.CopyTo(layer1Node8lines, 0);
+        newValues.hiddenLayerWeights1.CopyTo(hiddenLayerWeights1, 0);
+        newValues.hiddenLayerWeights2.CopyTo(hiddenLayerWeights2, 0);
+        newValues.hiddenLayerWeights3.CopyTo(hiddenLayerWeights3, 0);
+        newValues.hiddenLayerWeights4.CopyTo(hiddenLayerWeights4, 0);
+        newValues.hiddenLayerWeights5.CopyTo(hiddenLayerWeights5, 0);
+        newValues.hiddenLayerWeights6.CopyTo(hiddenLayerWeights6, 0);
+        newValues.hiddenLayerWeights7.CopyTo(hiddenLayerWeights7, 0);
+        newValues.hiddenLayerWeights8.CopyTo(hiddenLayerWeights8, 0);
 
         // newValues.layer2NodeValues.CopyTo(layer2NodeValues, 0);
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 4; i++)
         {
-            layer2NodeValues[i] = 0;
+            hiddenLayerValues[i] = 0;
         }
 
         //newValues.layer2Threshholds.CopyTo(layer2Threshholds, 0);
 
-        newValues.layer2Node1lines.CopyTo(layer2Node1lines, 0);
-        newValues.layer2Node2lines.CopyTo(layer2Node2lines, 0);
-        newValues.layer2Node3lines.CopyTo(layer2Node3lines, 0);
-        newValues.layer2Node4lines.CopyTo(layer2Node4lines, 0);
-        newValues.layer2Node5lines.CopyTo(layer2Node5lines, 0);
-        newValues.layer2Node6lines.CopyTo(layer2Node6lines, 0);
-        newValues.layer2Node7lines.CopyTo(layer2Node7lines, 0);
-        newValues.layer2Node8lines.CopyTo(layer2Node8lines, 0);
+        newValues.outputLayerWeights1.CopyTo(outputLayerWeights1, 0);
+        newValues.outputLayerWeights2.CopyTo(outputLayerWeights2, 0);
+        newValues.outputLayerWeights3.CopyTo(outputLayerWeights3, 0);
+        newValues.outputLayerWeights4.CopyTo(outputLayerWeights4, 0);
+
 
         //newValues.layer3NodeValues.CopyTo(layer3NodeValues, 0);
-        for (int i = 0; i < 8; i++)
-        {
-            layer3NodeValues[i] = 0;
-        }
-
-        //newValues.layer3Threshholds.CopyTo(layer3Threshholds, 0);
-
-        newValues.layer3Node1lines.CopyTo(layer3Node1lines, 0);
-        newValues.layer3Node2lines.CopyTo(layer3Node2lines, 0);
-        newValues.layer3Node3lines.CopyTo(layer3Node3lines, 0);
-        newValues.layer3Node4lines.CopyTo(layer3Node4lines, 0);
-        newValues.layer3Node5lines.CopyTo(layer3Node5lines, 0);
-        newValues.layer3Node6lines.CopyTo(layer3Node6lines, 0);
-        newValues.layer3Node7lines.CopyTo(layer3Node7lines, 0);
-        newValues.layer3Node8lines.CopyTo(layer3Node8lines, 0);
-
-        //newValues.triggerValues.CopyTo(triggerValues, 0);
         for (int i = 0; i < 5; i++)
         {
-            triggerValues[i] = 0;
+            outputLayerValues[i] = 0;
         }
-
-        newValues.triggerThreshholds.CopyTo(triggerThreshholds, 0);
     }
 
     float sigmoid(float inValue)
