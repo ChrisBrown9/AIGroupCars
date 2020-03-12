@@ -8,16 +8,17 @@ public class RaceManager : MonoBehaviour
     [SerializeField] Transform spawnLocation;
     [SerializeField] Material challengingCars;
 
-    [SerializeField] GameObject[] CarsList = new GameObject[20];
+    [SerializeField] GameObject[] CarsList = new GameObject[40];
 
     [SerializeField] ValuesStorage bestAI;
 
-    public float gameTimer = 3;
-    int raceNumber = 0;
+    public float gameTimer;
+    [SerializeField] int raceNumber = 0;
+
+    public static int deadCars = 0;
 
     int bestCheckpoint = -1;
     float leastDistance = 800;
-    float randomizationValue = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -35,13 +36,14 @@ public class RaceManager : MonoBehaviour
     {
         gameTimer -= Time.deltaTime;
         //spawn car if gametimer is less than zero
-        if (gameTimer < 0)
+        if (gameTimer < 0 || deadCars >= CarsList.Length)
         {
             raceNumber++;
 
             findBestCar();
+            deadCars = 0;
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < CarsList.Length; i++)
             {
                 CarsList[i].GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
                 CarsList[i].GetComponent<Rigidbody>().freezeRotation = true;
@@ -54,28 +56,24 @@ public class RaceManager : MonoBehaviour
             //assign car 1 the currently best AI
             CarsList[0].GetComponent<ValuesStorage>().replaceValues(bestAI);
 
-            for (int i = 1; i < 20; i++)
+            for (int i = 1; i < CarsList.Length; i++)
             {
                 //randomize the AI for the rest of the cars
                 //CarsList[i].GetComponent<ValuesStorage>().replaceValues(CarsList[0].GetComponent<ValuesStorage>());
                 //CarsList[i].GetComponent<ValuesStorage>().RandomizeValues(randomizationValue);
 
-                CarsList[i].GetComponent<ValuesStorage>().makeBaby(bestAI, randomizationValue);
+                CarsList[i].GetComponent<ValuesStorage>().makeBaby(bestAI);
+                //CarsList[i].GetComponent<ValuesStorage>().replaceValues(bestAI);
             }
 
-            //print("Race Number : " + raceNumber);
-            if (raceNumber < 500)
+            if (raceNumber < 50)
             {
-                //randomizationValue -= 0.001f;
-            }
-            if (raceNumber < 300)
-            {
-                gameTimer = 5 + raceNumber / 10;
-                
+                gameTimer = 400;
+
             }
             else
             {
-                gameTimer = 40;
+                gameTimer = 400;
             }
         }
     }
@@ -106,5 +104,39 @@ public class RaceManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public Vector3 bestCarPosition()
+    {
+        int bestCarNum = 0;
+        int currBestCheckpoint = -1;
+        float currLeastDistance = 800;
+
+        for (int i = 1; i < CarsList.Length; i++)
+        {
+            if (!CarsList[i].GetComponent<AICarSensors>().wallCollision)
+            {
+
+                AICarSensors testCar = CarsList[i].GetComponent<AICarSensors>();
+
+                if (testCar.getBestCheckpoint() > currBestCheckpoint)
+                {
+                    bestCarNum = i;
+                    currBestCheckpoint = testCar.getBestCheckpoint();
+                    currLeastDistance = testCar.getDistanceToNextCheckpoint();
+                }
+                else if (testCar.getBestCheckpoint() == currBestCheckpoint)
+                {
+                    if (testCar.getDistanceToNextCheckpoint() < currLeastDistance)
+                    {
+                        bestCarNum = i;
+                        currBestCheckpoint = testCar.getBestCheckpoint();
+                        currLeastDistance = testCar.getDistanceToNextCheckpoint();
+                    }
+                }
+            }
+        }
+
+        return CarsList[bestCarNum].GetComponent<Transform>().position;
     }
 }

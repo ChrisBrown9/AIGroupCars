@@ -145,8 +145,6 @@ public class NeuralNet : MonoBehaviour
         }
     }
 
-
-
     private void FixedUpdate()
     {
         startdelay -= Time.deltaTime;
@@ -167,13 +165,13 @@ public class NeuralNet : MonoBehaviour
             AICarSensors inputs = gameObject.GetComponent<AICarSensors>();
 
             /// Check the first layer for nodes that fired, then perform additions if they did
-            if (inputs.ForwardDist() > layer1Threshholds[0])
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    layer2NodeValues[i] += layer1Node1lines[i];
-                }
-            }
+            //if (inputs.ForwardDist() > layer1Threshholds[0])
+            //{
+            //    for (int i = 0; i < 8; i++)
+            //    {
+            //        layer2NodeValues[i] += layer1Node1lines[i];
+            //    }
+            //}
 
             if (inputs.FrontLeftDist() > layer1Threshholds[1])
             {
@@ -191,45 +189,45 @@ public class NeuralNet : MonoBehaviour
                 }
             }
 
-            if (inputs.FrontDownDist() > layer1Threshholds[3])
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    layer2NodeValues[i] += layer1Node4lines[i];
-                }
-            }
+            //if (inputs.FrontDownDist() > layer1Threshholds[3])
+            //{
+            //    for (int i = 0; i < 8; i++)
+            //    {
+            //        layer2NodeValues[i] += layer1Node4lines[i];
+            //    }
+            //}
 
-            if (inputs.LeftDist() > layer1Threshholds[4])
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    layer2NodeValues[i] += layer1Node5lines[i];
-                }
-            }
+            //if (inputs.LeftDist() > layer1Threshholds[4])
+            //{
+            //    for (int i = 0; i < 8; i++)
+            //    {
+            //        layer2NodeValues[i] += layer1Node5lines[i];
+            //    }
+            //}
 
-            if (inputs.RightDist() > layer1Threshholds[5])
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    layer2NodeValues[i] += layer1Node6lines[i];
-                }
-            }
+            //if (inputs.RightDist() > layer1Threshholds[5])
+            //{
+            //    for (int i = 0; i < 8; i++)
+            //    {
+            //        layer2NodeValues[i] += layer1Node6lines[i];
+            //    }
+            //}
 
-            if (inputs.BackLeftDist() > layer1Threshholds[6])
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    layer2NodeValues[i] += layer1Node7lines[i];
-                }
-            }
+            //if (inputs.BackLeftDist() > layer1Threshholds[6])
+            //{
+            //    for (int i = 0; i < 8; i++)
+            //    {
+            //        layer2NodeValues[i] += layer1Node7lines[i];
+            //    }
+            //}
 
-            if (inputs.BackRightDist() > layer1Threshholds[7])
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    layer2NodeValues[i] += layer1Node8lines[i];
-                }
-            }
+            //if (inputs.BackRightDist() > layer1Threshholds[7])
+            //{
+            //    for (int i = 0; i < 8; i++)
+            //    {
+            //        layer2NodeValues[i] += layer1Node8lines[i];
+            //    }
+            //}
             ///End of the first layer firing its nodes
 
             ///Start second layer firing its nodes if they surpass the threshholds
@@ -383,15 +381,15 @@ public class NeuralNet : MonoBehaviour
                 controls.Accelerate();
             }
 
-            if (triggerValues[3] > triggerThreshholds[3])
-            {
-                controls.Decelerate();
-            }
+            //if (triggerValues[3] > triggerThreshholds[3])
+            //{
+            //    controls.Decelerate();
+            //}
 
-            if (triggerValues[4] > triggerThreshholds[4])
-            {
-                controls.Jump();
-            }
+            //if (triggerValues[4] > triggerThreshholds[4])
+            //{
+            //    controls.Jump();
+            //}
             ///End of the AI performing its Job
         }
     }

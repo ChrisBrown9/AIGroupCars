@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class AICarSensors : MonoBehaviour
 {
-    RaycastHit Forward;
     RaycastHit FrontLeft;
     RaycastHit FrontRight;
-    RaycastHit FrontDown;
-    RaycastHit Left;
-    RaycastHit Right;
-    RaycastHit BackLeft;
-    RaycastHit BackRight;
+    RaycastHit FrontLeft2;
+    RaycastHit FrontRight2;
 
-    [SerializeField] Transform[] checkpoints = new Transform[51];
+    //RaycastHit Left;
+    //RaycastHit Right;
+
+    [SerializeField] Transform[] checkpoints = new Transform[52];
 
     int bestCheckpoint = -1;
     float distanceToNextCheckpoint;
@@ -30,37 +29,25 @@ public class AICarSensors : MonoBehaviour
             GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         }
 
-        Physics.Raycast(transform.position + transform.forward * 1.3f, transform.forward, out Forward, 50);
-        //Debug.DrawLine(transform.position + transform.forward * 1.3f, Forward.point);
+        Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward - transform.right).normalized, out FrontLeft, 50);
+        Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontLeft.point);
 
-        Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 - transform.right).normalized, out FrontLeft, 50);
-        //Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontLeft.point);
+        Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward + transform.right).normalized, out FrontRight, 50);
+        Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontRight.point);
 
-        Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 + transform.right).normalized, out FrontRight, 50);
-        //Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontRight.point);
+        Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 - transform.right).normalized, out FrontLeft2, 50);
+        Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontLeft2.point);
 
-        Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 - transform.up).normalized, out FrontDown, 50);
-        Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontDown.point);
+        Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 + transform.right).normalized, out FrontRight2, 50);
+        Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontRight2.point);
 
-        Physics.Raycast(transform.position - transform.right * 0.5f, -transform.right, out Left, 50);
+        //Physics.Raycast(transform.position - transform.right * 0.5f, -transform.right, out Left, 50);
         //Debug.DrawLine(transform.position - transform.right * 0.5f, Left.point);
 
-        Physics.Raycast(transform.position + transform.right * 0.5f, transform.right, out Right, 50);
+        //Physics.Raycast(transform.position + transform.right * 0.5f, transform.right, out Right, 50);
         //Debug.DrawLine(transform.position + transform.right * 0.5f, Right.point);
-
-        Physics.Raycast(transform.position - transform.forward * 1.3f, (-transform.forward * 2 - transform.right).normalized, out BackLeft, 50);
-        //Debug.DrawLine(transform.position - transform.forward * 1.3f, BackLeft.point);
-
-        Physics.Raycast(transform.position - transform.forward * 1.3f, (-transform.forward * 2 + transform.right).normalized, out BackRight, 50);
-        //Debug.DrawLine(transform.position - transform.forward * 1.3f, BackRight.point);
     }
 
-
-    public float ForwardDist()
-    {
-        //return Forward.distance / 50f;
-        return 0;
-    }
 
     public float FrontLeftDist()
     {
@@ -72,30 +59,25 @@ public class AICarSensors : MonoBehaviour
         return FrontRight.distance / 50f;
     }
 
-    public float FrontDownDist()
+    public float FrontLeft2Dist()
     {
-        return FrontDown.distance / 50f;
+        return FrontLeft2.distance / 50f;
     }
 
-    public float LeftDist()
+    public float FrontRight2Dist()
     {
-        return Left.distance / 50f;
+        return FrontRight2.distance / 50f;
     }
 
-    public float RightDist()
-    {
-        return Right.distance / 50f;
-    }
+    //public float LeftDist()
+    //{
+    //    return Left.distance / 50f;
+    //}
 
-    public float BackLeftDist()
-    {
-        return BackLeft.distance / 50f;
-    }
-
-    public float BackRightDist()
-    {
-        return BackRight.distance / 50f;
-    }
+    //public float RightDist()
+    //{
+    //    return Right.distance / 50f;
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -106,6 +88,7 @@ public class AICarSensors : MonoBehaviour
             if (i > bestCheckpoint)
             {
                 bestCheckpoint = i;
+                distanceToNextCheckpoint = 800;
             }
         }
     }
@@ -128,9 +111,10 @@ public class AICarSensors : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "Wall" && !wallCollision)
         {
             wallCollision = true;
+            RaceManager.deadCars++;
         }
     }
 }
