@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class AICarSensors : MonoBehaviour
 {
-    RaycastHit Forward;
+    //RaycastHit Forward;
     RaycastHit FrontLeft;
     RaycastHit FrontRight;
-    RaycastHit FrontDown;
+   // RaycastHit FrontDown;
     RaycastHit Left;
     RaycastHit Right;
-    RaycastHit BackLeft;
-    RaycastHit BackRight;
+    //RaycastHit BackLeft;
+    //RaycastHit BackRight;
 
     [SerializeField] Transform[] checkpoints = new Transform[51];
 
@@ -31,7 +31,7 @@ public class AICarSensors : MonoBehaviour
             GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         }
 
-        Physics.Raycast(transform.position + transform.forward * 1.3f, transform.forward, out Forward, 50);
+        //Physics.Raycast(transform.position + transform.forward * 1.3f, transform.forward, out Forward, 50);
         //Debug.DrawLine(transform.position + transform.forward * 1.3f, Forward.point);
 
         Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 - transform.right).normalized, out FrontLeft, 50);
@@ -40,26 +40,36 @@ public class AICarSensors : MonoBehaviour
         Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 + transform.right).normalized, out FrontRight, 50);
         //Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontRight.point);
 
-        Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 - transform.up).normalized, out FrontDown, 50);
+        Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 1 - transform.right).normalized, out Left, 50);
+        //Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontLeft.point);
+
+        Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 1 + transform.right).normalized, out Right, 50);
+        //Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontRight.point);
+
+        //Physics.Raycast(transform.position + transform.forward * 1.3f, (transform.forward * 2 - transform.up).normalized, out FrontDown, 50);
         //Debug.DrawLine(transform.position + transform.forward * 1.3f, FrontDown.point);
 
-        Physics.Raycast(transform.position - transform.right * 0.5f, -transform.right, out Left, 50);
+
+
+        //Physics.Raycast(transform.position - transform.right * 0.5f, -transform.right, out Left, 50);
         //Debug.DrawLine(transform.position - transform.right * 0.5f, Left.point);
 
-        Physics.Raycast(transform.position + transform.right * 0.5f, transform.right, out Right, 50);
+        //Physics.Raycast(transform.position + transform.right * 0.5f, transform.right, out Right, 50);
         //Debug.DrawLine(transform.position + transform.right * 0.5f, Right.point);
 
-        Physics.Raycast(transform.position - transform.forward * 1.3f, (-transform.forward * 2 - transform.right).normalized, out BackLeft, 50);
+
+
+        //Physics.Raycast(transform.position - transform.forward * 1.3f, (-transform.forward * 2 - transform.right).normalized, out BackLeft, 50);
         //Debug.DrawLine(transform.position - transform.forward * 1.3f, BackLeft.point);
 
-        Physics.Raycast(transform.position - transform.forward * 1.3f, (-transform.forward * 2 + transform.right).normalized, out BackRight, 50);
+        //Physics.Raycast(transform.position - transform.forward * 1.3f, (-transform.forward * 2 + transform.right).normalized, out BackRight, 50);
         //Debug.DrawLine(transform.position - transform.forward * 1.3f, BackRight.point);
     }
 
 
     public float ForwardDist()
     {
-        return Forward.distance / 50f;
+        return 0; // Forward.distance / 50f;
     }
 
     public float FrontLeftDist()
@@ -74,7 +84,7 @@ public class AICarSensors : MonoBehaviour
 
     public float FrontDownDist()
     {
-        return FrontDown.distance / 50f;
+        return 0; // FrontDown.distance / 50f;
     }
 
     public float LeftDist()
@@ -89,12 +99,12 @@ public class AICarSensors : MonoBehaviour
 
     public float BackLeftDist()
     {
-        return BackLeft.distance / 50f;
+        return 0; //  BackLeft.distance / 50f;
     }
 
     public float BackRightDist()
     {
-        return BackRight.distance / 50f;
+        return 0; //  BackRight.distance / 50f;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -135,7 +145,7 @@ public class AICarSensors : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "Wall" && !wallCollision)
         {
             die();
         }

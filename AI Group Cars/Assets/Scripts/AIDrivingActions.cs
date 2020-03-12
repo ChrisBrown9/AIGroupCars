@@ -9,6 +9,8 @@ public class AIDrivingActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Accelerate();
+
         if (grounded)
         {
             GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x * 0.95f,
@@ -21,7 +23,7 @@ public class AIDrivingActions : MonoBehaviour
     {
         if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
-            transform.Rotate(new Vector3(0, -120 * Time.deltaTime, 0));
+            transform.Rotate(new Vector3(0, -240 * Time.deltaTime, 0));
         }
     }
 
@@ -29,7 +31,7 @@ public class AIDrivingActions : MonoBehaviour
     {
         if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
-            transform.Rotate(new Vector3(0, 120 * Time.deltaTime, 0));
+            transform.Rotate(new Vector3(0, 240 * Time.deltaTime, 0));
         }
     }
 
@@ -37,7 +39,7 @@ public class AIDrivingActions : MonoBehaviour
     {
         if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward * 50f, ForceMode.Force);
+            GetComponent<Rigidbody>().AddForce(transform.forward * 40f, ForceMode.Force);
         }
     }
 
@@ -45,16 +47,13 @@ public class AIDrivingActions : MonoBehaviour
     {
         if (grounded && !GetComponent<AICarSensors>().wallCollision)
         {
-            GetComponent<Rigidbody>().AddForce(-transform.forward * 50f, ForceMode.Force);
+            GetComponent<Rigidbody>().AddForce(-transform.forward * 25f, ForceMode.Force);
         }
     }
 
     public void Jump()
     {
-        if (grounded && !GetComponent<AICarSensors>().wallCollision)
-        {
-            GetComponent<Rigidbody>().AddForce(new Vector3(0, 1, 0), ForceMode.Impulse);
-        }
+
     }
 
     private void OnCollisionStay(Collision collision)

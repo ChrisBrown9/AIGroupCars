@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AICarSensors.cs" />
     <Compile Include="Assets\Scripts\AIDrivingActions.cs" />
+    <Compile Include="Assets\Scripts\Camera.cs" />
     <Compile Include="Assets\Scripts\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\NeuralNet.cs" />
     <Compile Include="Assets\Scripts\RaceManager.cs" />
