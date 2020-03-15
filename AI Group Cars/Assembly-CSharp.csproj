@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\NeuralNet.cs" />
     <Compile Include="Assets\Scripts\RaceManager.cs" />
     <Compile Include="Assets\Scripts\ValuesStorage.cs" />
+    <None Include="Assets\Weights.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/zaccl/Documents/Unity/Projects/AIGroupCars/AI Group Cars/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class ValuesStorage : MonoBehaviour
 {
@@ -250,6 +251,61 @@ public class ValuesStorage : MonoBehaviour
         {
             outputLayerValues[i] = 0;
         }
+    }
+
+    public void saveWeights()
+    {
+        string path = "Assets/Weights.txt";
+        File.WriteAllText(path, string.Empty);
+        StreamWriter write = new StreamWriter(path, true);
+        write.WriteLine(frontLeftWeights[0] + " " + frontLeftWeights[1]);
+        write.WriteLine(frontRightWeights[0] + " " + frontRightWeights[1]);
+        write.WriteLine(leftWeights[0] + " " + leftWeights[1]);
+        write.WriteLine(rightWeights[0] + " " + rightWeights[1]);
+        write.WriteLine(leftThreatWeights[0] + " " + leftThreatWeights[1]);
+        write.WriteLine(rightThreatWeights[0] + " " + rightThreatWeights[1]);
+
+        write.Close();
+    }
+
+    public void loadWeights()
+    {
+
+        List<string> readData = new List<string>();
+        string[][] indVal = new string[6][];
+        string path = "Assets/Weights.txt";
+        StreamReader read = new StreamReader(path, true);
+        while (!read.EndOfStream)
+        {
+            readData.Add(read.ReadLine());
+        }
+        for (int i = 0; i < readData.Count; i++)
+        {
+            string[] lineVal = readData[i].Split(' ');
+            indVal[i] = new string[] { lineVal[0], lineVal[1] };
+        }
+        //Lemme comment pls
+        frontLeftWeights[0] = float.Parse(indVal[0][0]);
+        frontLeftWeights[1] = float.Parse(indVal[0][1]);
+
+        frontRightWeights[0] = float.Parse(indVal[1][0]);
+        frontRightWeights[1] = float.Parse(indVal[1][1]);
+
+        leftWeights[0] = float.Parse(indVal[2][0]);
+        leftWeights[1] = float.Parse(indVal[2][1]);
+
+        rightWeights[0] = float.Parse(indVal[3][0]);
+        rightWeights[1] = float.Parse(indVal[3][1]);
+
+        leftThreatWeights[0] = float.Parse(indVal[4][0]);
+        leftThreatWeights[1] = float.Parse(indVal[4][1]);
+
+        rightThreatWeights[0] = float.Parse(indVal[5][0]);
+        rightThreatWeights[1] = float.Parse(indVal[5][1]);
+
+        read.Close();
+
+        //print(readData);
     }
 
     float sigmoid(float inValue)

@@ -78,7 +78,7 @@ public class RaceManager : MonoBehaviour
             {
                 //gameTimer = 5 + raceNumber / 10;
                 gameTimer = 300;
-                
+
             }
             else
             {
@@ -157,7 +157,7 @@ public class RaceManager : MonoBehaviour
         int currBestCheckpoint = -1;
         float currLeastDistance = 800;
 
-        for (int i = 1; i < CarsList.Length; i++)
+        for (int i = 0; i < CarsList.Length; i++)
         {
             if (!CarsList[i].GetComponent<AICarSensors>().wallCollision)
             {
@@ -183,5 +183,17 @@ public class RaceManager : MonoBehaviour
         }
 
         return CarsList[bestCarNum].GetComponent<Transform>().position;
+    }
+
+    public void btnSaveWeights()
+    {
+        mommy.saveWeights();
+    }
+
+    public void btnLoadWeights()
+    {
+        mommy.loadWeights();
+        daddy.loadWeights();
+        gameTimer = 0.01f;
     }
 }
