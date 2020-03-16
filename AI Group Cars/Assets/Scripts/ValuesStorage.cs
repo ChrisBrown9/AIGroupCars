@@ -1,5 +1,4 @@
-﻿//Sigmoid function gotten from https://stackoverflow.com/questions/412019/math-optimization-in-c-sharp
-
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +7,11 @@ using System.IO;
 public class ValuesStorage : MonoBehaviour
 {
     //first layer values needed in order to fire
-    float startdelay = 1.5f;
+    //timer used for short delay on AI cars before race starts
+    public float startdelay = 1.5f;
 
     //Front left
+    //arrays intended to store values given by raycasts that AI cars use to see
     public float[] frontLeftWeights = new float[2];
     //Front right
     public float[] frontRightWeights = new float[2];
@@ -20,21 +21,27 @@ public class ValuesStorage : MonoBehaviour
     public float[] rightWeights = new float[2];
 
     //hidden layer totals
+    //values for hidden layer of neural net
+    //inputs get passed through weights and put here
     public float[] hiddenLayerValues = new float[2];
 
     //Left threat
+    //weighting of lines between hidden layer and output layer
     public float[] leftThreatWeights = new float[2];
     //Right threat
     public float[] rightThreatWeights = new float[2];
 
     //output layer totals
+    //based on the value at the end of update the car will decide what action to take 
     public float[] outputLayerValues = new float[2];
 
     private void Awake()
     {
+        //resets all values to 0.5 
         FreshStartValues();
     }
 
+    //resets values on awake
     public void FreshStartValues()
     {
         for (int i = 0; i < 2; i++)
@@ -52,9 +59,14 @@ public class ValuesStorage : MonoBehaviour
         }
     }
 
+    //takes in values from best car and second best car
+    //then for each individual node or value we take randomly from mom or dad (50/50),
+    //and then after we've taken the values we decide whether or not to mutate 
     public void RandomizeValues(ValuesStorage mom, ValuesStorage dad, float value)
     {
+        //0 or 1, if 1 we mutate
         int yesMutate;
+        //randomize before each decision in order to determine if its the father or mother 
         int parent;
 
         for (int i = 0; i < 2; i++)
@@ -174,6 +186,7 @@ public class ValuesStorage : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //delays start
         startdelay -= Time.deltaTime;
         if (startdelay < 0)
         {
@@ -183,9 +196,11 @@ public class ValuesStorage : MonoBehaviour
                 hiddenLayerValues[i] = 0;
                 outputLayerValues[i] = 0;
             }
+
+            //assigns input values of neural net to be the values the AI cars sense
             AICarSensors inputs = gameObject.GetComponent<AICarSensors>();
 
-            /// Check the first layer for nodes that fired, then perform additions if they did
+            // Check the first layer for nodes that fired, then perform additions if they did
             for (int i = 0; i < 2; i++)
             {
                 hiddenLayerValues[i] += frontLeftWeights[i] * inputs.FrontLeftDist();
@@ -200,11 +215,14 @@ public class ValuesStorage : MonoBehaviour
                 outputLayerValues[i] += rightThreatWeights[i] * hiddenLayerValues[1];
             }
 
+            //initializes driving actions 
             AIDrivingActions controls = GetComponent<AIDrivingActions>();
 
             float bestvalue = outputLayerValues[0];
             int bestvaluenum = 0;
 
+            //if AI car wants to turn left, turn left
+            //if AI car wants to turn right, turn right 
             if (outputLayerValues[1] > bestvalue)
             {
                 bestvaluenum = 1;
@@ -219,40 +237,38 @@ public class ValuesStorage : MonoBehaviour
                     controls.TurnRight();
                     break;
             }
-            ///End of the AI performing its Job
+            //End of the AI performing its Job
         }
     }
 
     //replace all of the current values in the NeuralNet with the newer shinier values that may or may not improve the racing
     //abilities of the car
+    //used to replicate an AI car 
     public void replaceValues(ValuesStorage newValues)
     {
-        //newValues.layer1Threshholds.CopyTo(layer1Threshholds, 0);
 
         newValues.frontLeftWeights.CopyTo(frontLeftWeights, 0);
         newValues.frontRightWeights.CopyTo(frontRightWeights, 0);
         newValues.leftWeights.CopyTo(leftWeights, 0);
         newValues.rightWeights.CopyTo(rightWeights, 0);
 
-        // newValues.layer2NodeValues.CopyTo(layer2NodeValues, 0);
 
         for (int i = 0; i < 2; i++)
         {
             hiddenLayerValues[i] = 0;
         }
 
-        //newValues.layer2Threshholds.CopyTo(layer2Threshholds, 0);
 
         newValues.leftThreatWeights.CopyTo(leftThreatWeights, 0);
         newValues.rightThreatWeights.CopyTo(rightThreatWeights, 0);
 
-        //newValues.layer3NodeValues.CopyTo(layer3NodeValues, 0);
         for (int i = 0; i < 2; i++)
         {
             outputLayerValues[i] = 0;
         }
     }
 
+    //saves weights into text file 
     public void saveWeights()
     {
         string path = "Assets/Weights.txt";
@@ -268,6 +284,7 @@ public class ValuesStorage : MonoBehaviour
         write.Close();
     }
 
+    //loads stored weights from text file into mother car 
     public void loadWeights()
     {
 
@@ -306,11 +323,6 @@ public class ValuesStorage : MonoBehaviour
         read.Close();
 
         //print(readData);
-    }
-
-    float sigmoid(float inValue)
-    {
-        return (float)1f / (1f + Mathf.Exp(inValue));
     }
 
     public void resetStartDelay()

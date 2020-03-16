@@ -4,35 +4,38 @@ using UnityEngine;
 
 public class RaceManager : MonoBehaviour
 {
+    //location & rotation we set cars to at beginning of race
     [SerializeField] Transform spawnLocation;
-    [SerializeField] Material challengingCars;
-
+    
+    //stores the cars 
     [SerializeField] GameObject[] CarsList = new GameObject[42];
 
+    //stores weights of best car
     [SerializeField] ValuesStorage mommy;
+    //stores weights of second best car 
     [SerializeField] ValuesStorage daddy;
 
+    //resets race if cars take too long to finish it 
     public float gameTimer = 300;
+
+    //tracks the generation of cars
     public int raceNumber = 0;
 
+    //farthest checkpoint the racecar has reached
     int mommyCheckpoint = -1;
+    //distance tell next checkpoint 
     float mommyLeastDistance = 800;
 
+    //farthest checkpoint the racecar has reached
     int daddyCheckpoint = -1;
+    //distance tell next checkpoint 
     float daddyLeastDistance = 800;
 
+    //when a car is mutated, this is the maximum deviation from the current value stored 
     float randomizationValue = 0.1f;
 
+    //tracks crashed cars
     public static int deadCars = 0;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        for (int i = 1; i < 20; i++)
-        {
-            CarsList[i].GetComponentInChildren<MeshRenderer>().material = challengingCars;
-        }
-    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -44,9 +47,8 @@ public class RaceManager : MonoBehaviour
             raceNumber++;
             deadCars = 0;
 
+            //calls function
             findBestCars();
-
-            //print("Mommy Weights: [" + mommy.frontLeftWeights[0] + "], [" + mommy.frontLeftWeights[1] + "], [" + mommy.frontRightWeights[0] + "], [" + mommy.frontRightWeights[1] + "]");
 
             for (int i = 0; i < CarsList.Length; i++)
             {
@@ -69,32 +71,21 @@ public class RaceManager : MonoBehaviour
                 CarsList[i].GetComponent<ValuesStorage>().RandomizeValues(mommy, daddy, randomizationValue);
             }
 
-            //print("Race Number : " + raceNumber);
-            if (raceNumber < 100)
-            {
-                //randomizationValue -= 0.01f;
-            }
-            if (raceNumber < 300)
-            {
-                //gameTimer = 5 + raceNumber / 10;
-                gameTimer = 300;
-
-            }
-            else
-            {
-                gameTimer = 300;
-            }
+            //resets time when race resets 
+            gameTimer = 300;
         }
     }
 
+    //replaces values inside of mommy and daddy cars with the new best cars from the previous generation
+    //if there are better cars 
     void findBestCars()
     {
-        //print("Daddy Weights: " + daddy.frontLeftWeights[0] + ", " + daddy.frontLeftWeights[1]);
 
         for (int i = 1; i < CarsList.Length; i++)
         {
             AICarSensors testCar = CarsList[i].GetComponent<AICarSensors>();
 
+            //checks if any cars were better than mommy, if there are, replaces mommy and daddy with correct new values 
             if (testCar.getBestCheckpoint() > mommyCheckpoint)
             {
                 daddy.replaceValues(mommy);
@@ -104,14 +95,6 @@ public class RaceManager : MonoBehaviour
                 mommy.replaceValues(testCar.GetComponent<ValuesStorage>());
                 mommyCheckpoint = testCar.getBestCheckpoint();
                 mommyLeastDistance = testCar.getDistanceToNextCheckpoint();
-
-                //print("Best Car is: " + i);
-
-                //print("Best Weights: [" + CarsList[i].GetComponent<ValuesStorage>().frontLeftWeights[0] + "], [" + CarsList[i].GetComponent<ValuesStorage>().frontLeftWeights[1] + "], [" + CarsList[i].GetComponent<ValuesStorage>().frontRightWeights[0] + "], [" + CarsList[i].GetComponent<ValuesStorage>().frontRightWeights[1] + "]");
-
-
-                //print("Test car best checkpoint :" + testCar.getBestCheckpoint());
-                //print("Record holder best checkpoint :" + currentlyBestCar.getBestCheckpoint());
             }
             else if (testCar.getBestCheckpoint() == mommyCheckpoint)
             {
@@ -124,11 +107,10 @@ public class RaceManager : MonoBehaviour
                     mommy.replaceValues(testCar.GetComponent<ValuesStorage>());
                     mommyCheckpoint = testCar.getBestCheckpoint();
                     mommyLeastDistance = testCar.getDistanceToNextCheckpoint();
-                    //print("Test car best checkpoint :" + testCar.getBestCheckpoint());
-                    //print("Record holder best checkpoint :" + currentlyBestCar.getBestCheckpoint());
                 }
             }
 
+            //checks if any cars were better than daddy, if there are, replaces daddy with correct new values 
             else if (testCar.getBestCheckpoint() > daddyCheckpoint)
             {
                 daddy.replaceValues(testCar.GetComponent<ValuesStorage>());
@@ -151,12 +133,14 @@ public class RaceManager : MonoBehaviour
         }
     }
 
+    //returns position of current leading car so we know where the camera should follow 
     public Vector3 bestCarPosition()
     {
         int bestCarNum = 0;
         int currBestCheckpoint = -1;
         float currLeastDistance = 800;
 
+        //loops through all cars and finds current best one so camera knows who to follow 
         for (int i = 0; i < CarsList.Length; i++)
         {
             if (!CarsList[i].GetComponent<AICarSensors>().wallCollision)
@@ -185,11 +169,13 @@ public class RaceManager : MonoBehaviour
         return CarsList[bestCarNum].GetComponent<Transform>().position;
     }
 
+    //when button clicked saves weights 
     public void btnSaveWeights()
     {
         mommy.saveWeights();
     }
 
+    //when button clicked, loads weights 
     public void btnLoadWeights()
     {
         mommy.loadWeights();

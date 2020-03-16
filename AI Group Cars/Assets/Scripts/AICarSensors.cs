@@ -13,6 +13,7 @@ public class AICarSensors : MonoBehaviour
     //RaycastHit BackLeft;
     //RaycastHit BackRight;
 
+    //storing 51 checkpoints in array
     [SerializeField] Transform[] checkpoints = new Transform[51];
 
     int bestCheckpoint = -1;
@@ -66,47 +67,33 @@ public class AICarSensors : MonoBehaviour
         //Debug.DrawLine(transform.position - transform.forward * 1.3f, BackRight.point);
     }
 
-
-    public float ForwardDist()
-    {
-        return 0; // Forward.distance / 50f;
-    }
-
+    //takes distance of front left sensor and modifies to be between value of 0 and 1
     public float FrontLeftDist()
     {
         return FrontLeft.distance / 50f;
     }
 
+
+    //takes distance of front right sensor and modifies to be between value of 0 and 1
     public float FrontRightDist()
     {
         return FrontRight.distance / 50f;
     }
 
-    public float FrontDownDist()
-    {
-        return 0; // FrontDown.distance / 50f;
-    }
-
+    //takes distance of left sensor and modifies to be between value of 0 and 1
     public float LeftDist()
     {
         return Left.distance / 50f;
     }
 
+    //takes distance of right sensor and modifies to be between value of 0 and 1
     public float RightDist()
     {
         return Right.distance / 50f;
     }
 
-    public float BackLeftDist()
-    {
-        return 0; //  BackLeft.distance / 50f;
-    }
-
-    public float BackRightDist()
-    {
-        return 0; //  BackRight.distance / 50f;
-    }
-
+    //on collision with a checkpoint, check if its better than your best checkpoint
+    //if yes, replace best cehckpoint with it 
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Checkpoint>() != null)
@@ -120,49 +107,38 @@ public class AICarSensors : MonoBehaviour
         }
     }
 
+    //gets value of best checkpoint
     public int getBestCheckpoint()
     {
         return bestCheckpoint;
     }
 
+    //resets avlues for new race 
     public void resetBestCheckpoint()
     {
         bestCheckpoint = -1;
         wallCollision = false;
         deathTimer = 3.0f;
     }
-
+    //finds how far car is from next checkpoint list 
     public float getDistanceToNextCheckpoint()
     {
         return distanceToNextCheckpoint;
     }
 
+    //kills car and tells racemanager that car died 
     private void die()
     {
         wallCollision = true;
         RaceManager.deadCars++;
     }
 
+    //makes sure dead car does not collide with wall
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Wall" && !wallCollision)
         {
             die();
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (!wallCollision)
-        {
-            if (other.gameObject.tag == "MainCamera")
-            {
-                deathTimer -= Time.deltaTime;
-                if (deathTimer < 0.0f)
-                {
-                    die();
-                }
-            }
         }
     }
 }
